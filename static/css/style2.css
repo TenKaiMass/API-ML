@@ -1,0 +1,25 @@
+body {
+  text-align: center;
+  background-color: #5f9ea0;
+}
+h1 {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  font-size: 4.2em;
+}
+h2 {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  font-size: 3.2em;
+  margin-top: 120px;
+}
+p {
+  color: white;
+  font-size: 2.2em;
+  display: inline-block;
+  margin: 20px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/static/css/style2.css" />
+  </head>
+  <title>Haters Or Not</title>
+  <h1>Haters, offensive or neither??</h1>
+  <body>
+    {% if data == '0' %}
+    <p>D'apres l'agorithme ce tweet est plutot haineux</p>
+    {% elif data == '1' %}
+    <p>D'apres l'agorithme ce tweet est plutot offansant</p>
+    {% elif data == '2'%}
+    <p>D'apres l'agorithme ce tweet est plutot chill</p>
+    {% endif %}
+  </body>
+</html>

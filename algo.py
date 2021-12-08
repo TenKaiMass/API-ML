@@ -1,18 +1,18 @@
-import pickle
+from joblib import dump
 import pandas as pd
-from stop_words import get_stop_words
 from sklearn import svm
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn import datasets
 from sklearn.pipeline import make_pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 import re
-#from nltk.corpus import stopwords as sw
+from nltk.corpus import stopwords
+# import nltk
 
 
 # Importation du dataset
 dt = pd.read_csv("dataset/labels.csv")
+dt = dt.sample(100)
 # Clean des données
 # #Gerer les tweet
 tweet = dt['tweet']
@@ -22,9 +22,13 @@ tweet = tweet.str.lower()
 tweet = tweet.apply(lambda x: re.sub("[^a-z\s]", "", x))
 # # #enleve les #
 tweet = tweet.str.replace("#", " ")
-#sw = set()
+# # # Enleve les stop word
+# nltk.download('stopwords')
+stropwords = set(stopwords.words("english"))
+tweet = tweet.apply(lambda x: " ".join(
+    w for w in x.split() if w not in stropwords))
 dt['tweet'] = tweet
-print(dt.head(5))
+# print(dt.head(5))
 # selection features et target
 y = dt['class']
 X = tweet
@@ -32,13 +36,12 @@ X = tweet
 # Split des data
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 clf = make_pipeline(
-    TfidfVectorizer(stop_words=get_stop_words(
-        'en')),
+    TfidfVectorizer(stop_words=stopwords.words("english")),
     OneVsRestClassifier(svm.SVC(kernel='linear', probability=True))
 
 )
 # Entrainement
-clf.fit(X, y)
+clf.fit(X_train, y_train)
 
 # sauvegarde avec dumps dumodel entrainer
-#s = pickle.dumps(clf)
+dump(clf, "algo.joblib")
